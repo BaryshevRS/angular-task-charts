@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>bar_chart</mat-icon> Введите расчёт угля
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-form-field class="w-full">
+        <mat-label>Favorite food</mat-label>
+        <input matInput placeholder="" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Дата ввода данных</mat-label>
+        <input formControlName="date" matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-stroked-button>Откатить</button>
+    <button (click)="formSubmit()" mat-flat-button color="primary">Сохранить</button>
+  </mat-card-actions>
+</mat-card>
+
+
