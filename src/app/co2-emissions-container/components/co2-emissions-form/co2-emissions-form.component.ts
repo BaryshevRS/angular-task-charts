@@ -8,8 +8,8 @@ import {
 import { MatInput, MatInputModule } from "@angular/material/input";
 import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { Co2Data, CO2FormData  } from "../../models/co2-data.interface";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Co2Data, CO2FormData } from "../../models/co2-data.interface";
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from "@angular/material/card";
 
 @Component({
@@ -32,8 +32,7 @@ import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } 
     MatCardActions,
     MatCardContent,
   ],
-  providers: [
-  ],
+  providers: [],
   templateUrl: './co2-emissions-form.component.html',
   styleUrl: './co2-emissions-form.component.scss'
 })
@@ -46,19 +45,26 @@ export class Co2EmissionsFormComponent {
   @Output() submit = new EventEmitter<Co2Data>();
   form = new FormGroup(
     {
-      name: new FormControl(''),
-      date: new FormControl(null),
+      name: new FormControl('', [
+        Validators.required, Validators.min(0), Validators.max(1000), Validators.pattern(/^[0-9]+$/)
+      ]),
+      date: new FormControl(null, [Validators.required]),
     }
   )
 
+  cancelForm() {
+    this.form.reset();
+    this.form.markAsPristine();
+  }
+
   formSubmit() {
-    const { name = '' , date = '' } = this.form.value;
+    const {name = '', date = ''} = this.form.value;
     if (name && date) {
       this.submit.emit({
         name,
         date
       });
-      this.form.reset();
+      this.cancelForm()
     }
   }
 }

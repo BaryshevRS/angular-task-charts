@@ -12,6 +12,15 @@
       <mat-form-field class="w-full">
         <mat-label>{{ formData.name }}</mat-label>
         <input matInput placeholder="" formControlName="name">
+        @if (form.get('name')?.hasError('required')) {
+          <mat-error>Поле обязательное.</mat-error>
+        }
+        @if (form.get('name')?.hasError('min') ||
+            form.get('name')?.hasError('max') ||
+            form.get('name')?.hasError('pattern')
+          ) {
+          <mat-error>Допустимое значение от 0 до 1000.</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field class="w-full">
@@ -19,14 +28,17 @@
         <input formControlName="date" matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        @if (form.get('date')?.hasError('required')) {
+          <mat-error>Поле обязательное.</mat-error>
+        }
       </mat-form-field>
 
     </form>
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button class="mr-4" mat-stroked-button>Откатить</button>
-    <button (click)="formSubmit()" mat-flat-button color="primary">Сохранить</button>
+    <button [disabled]="!form.valid" (click)="cancelForm()" class="mr-4" mat-stroked-button>Откатить</button>
+    <button [disabled]="!form.valid" (click)="formSubmit()" mat-flat-button color="primary">Сохранить</button>
   </mat-card-actions>
 </mat-card>
 

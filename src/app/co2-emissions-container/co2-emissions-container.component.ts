@@ -7,6 +7,7 @@ import {
 import {
   Co2EmissionsChartSplineComponent
 } from "./components/co2-emissions-chart-spline/co2-emissions-chart-spline.component";
+import { Co2CalculatorService } from "./services/co2-calculator.service";
 
 @Component({
   selector: 'app-co2-emissions-container',
@@ -15,6 +16,9 @@ import {
     Co2EmissionsFormComponent,
     Co2EmissionsChartScatterComponent,
     Co2EmissionsChartSplineComponent
+  ],
+  providers: [
+    Co2CalculatorService
   ],
   templateUrl: './co2-emissions-container.component.html',
   styleUrl: './co2-emissions-container.component.scss'
