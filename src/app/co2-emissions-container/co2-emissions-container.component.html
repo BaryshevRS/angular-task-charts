@@ -2,5 +2,8 @@
   @for (form of forms; track form) {
     <app-co2-emissions-form [formData]="form"/>
   }
-
+</div>
+<div class="inline-flex gap-4 w-full justify-center">
+  <app-co2-emissions-chart-scatter />
+  <app-co2-emissions-chart-spline />
 </div>
