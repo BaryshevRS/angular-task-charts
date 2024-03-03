@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Co2EmissionsFormComponent } from "./components/co2-emissions-form/co2-emissions-form.component";
+import { CO2FormData } from "./models/co2-data.interface";
 
 @Component({
   selector: 'app-co2-emissions-container',
@@ -11,5 +12,16 @@ import { Co2EmissionsFormComponent } from "./components/co2-emissions-form/co2-e
   styleUrl: './co2-emissions-container.component.scss'
 })
 export class Co2EmissionsContainerComponent {
-
+  forms: Array<CO2FormData> = [
+    {
+      title: 'Введите расход угля (тонн)',
+      name: 'Уголь (тонн)',
+      date: 'Дата ввода данных (Уголь)'
+    },
+    {
+      title: 'Введите расход газа (тыщ. м3)',
+      name: 'Природный газ (тыщ. м3))',
+      date: 'Дата ввода данных (Газ)'
+    },
+  ]
 }

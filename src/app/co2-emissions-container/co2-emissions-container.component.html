@@ -1,1 +1,6 @@
-<app-co2-emissions-form />
+<div class="inline-flex gap-4 w-full justify-center ">
+  @for (form of forms; track form) {
+    <app-co2-emissions-form [formData]="form"/>
+  }
+
+</div>
