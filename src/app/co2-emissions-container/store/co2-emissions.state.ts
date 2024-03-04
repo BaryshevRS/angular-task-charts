@@ -5,30 +5,30 @@ import { Co2Data, CO2FormId } from "../models/co2-data.interface";
 class CO2EmissionsState {
   [CO2FormId.Gas]: Array<Co2Data> = [
     {
-      value: 20,
-      date: '2023-09-19T01:30:00.000Z'
-    },
-    {
       value: 50,
-      date: '2023-09-20T01:30:00.000Z'
+      date: '2024-01-19T01:30:00.000Z'
     },
     {
-      value: 25,
-      date: '2023-09-21T01:30:00.000Z'
+      value: 30,
+      date: '2024-01-20T01:30:00.000Z'
+    },
+    {
+      value: 37,
+      date: '2024-01-21T01:30:00.000Z'
     }
   ];
   [CO2FormId.Coal]: Array<Co2Data> = [
     {
       value: 30,
-      date: '2023-09-19T01:30:00.000Z'
+      date: '2024-01-19T01:30:00.000Z'
     },
     {
       value: 20,
-      date: '2023-09-20T01:30:00.000Z'
+      date: '2024-01-20T01:30:00.000Z'
     },
     {
       value: 35,
-      date: '2023-09-21T01:30:00.000Z'
+      date: '2024-01-21T01:30:00.000Z'
     }
   ]
 }

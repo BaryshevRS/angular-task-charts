@@ -34,7 +34,7 @@ export class Co2EmissionsContainerComponent {
     },
     {
       title: 'Введите расход газа (тыщ. м3)',
-      name: 'Природный газ (тыщ. м3))',
+      name: 'Природный газ (тыщ. м3)',
       date: 'Дата ввода данных (Газ)',
       id: CO2FormId.Gas
     },
