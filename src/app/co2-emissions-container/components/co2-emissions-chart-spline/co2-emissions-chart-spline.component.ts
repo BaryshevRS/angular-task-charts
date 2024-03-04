@@ -1,8 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
 import {
   ChartComponent, NgApexchartsModule
 } from "ng-apexcharts";
 import { ChartSplineOptions } from "./models";
+import { ChangeDetection } from "@angular/cli/lib/config/workspace-schema";
+import { Co2CalculatorService } from "../../services/co2-calculator.service";
+import {
+  Co2EmissionsChartScatterService
+} from "../co2-emissions-chart-scatter/service/co2-emissions-chart-scatter.service";
+import { Co2EmissionsChartSplineService } from "./service/co2-emissions-chart-spline.service";
+import { Co2Data, CO2FormId } from "../../models/co2-data.interface";
 
 @Component({
   selector: 'app-co2-emissions-chart-spline',
@@ -10,68 +17,47 @@ import { ChartSplineOptions } from "./models";
   imports: [
     NgApexchartsModule
   ],
+  providers: [
+    Co2CalculatorService, Co2EmissionsChartSplineService
+  ],
   templateUrl: './co2-emissions-chart-spline.component.html',
-  styleUrl: './co2-emissions-chart-spline.component.scss'
+  styleUrl: './co2-emissions-chart-spline.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Co2EmissionsChartSplineComponent {
-  @ViewChild("chart") chart: ChartComponent | null = null;
-  public chartOptions: ChartSplineOptions;
-
-  constructor() {
-    this.chartOptions = {
-      series: [
-        {
-          name: "series1",
-          data: [31, 40, 28, 51, 42, 109, 100]
-        },
-        {
-          name: "series2",
-          data: [11, 32, 45, 32, 34, 52, 41]
-        }
-      ],
-      chart: {
-        height: 350,
-        type: "area"
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "smooth"
-      },
-      xaxis: {
-        type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z"
-        ]
-      },
-      tooltip: {
-        x: {
-          format: "dd/MM/yy HH:mm"
-        }
+  @ViewChild("chart" ) chart: ChartComponent | null = null;
+  public chartOptions: ChartSplineOptions = {
+    series: [
+    ],
+    chart: {
+      height: 380,
+      type: "area"
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: "smooth"
+    },
+    xaxis: {
+      type: "datetime",
+      categories: [
+      ]
+    },
+    tooltip: {
+      x: {
+        format: "dd/MM/yy HH:mm"
       }
-    };
+    }
+  };
+
+  @Input() set data(value: Record<CO2FormId, Array<Co2Data>>) {
+    this.chartSplineService.setData(value)
+    const { series, xaxis } = this.chartSplineService.setData(value)
+    this.chartOptions.series = series
+    this.chartOptions.xaxis = xaxis
   }
 
-  public generateData(baseval: number, count: number, yrange: { min: number, max: number }) {
-    let i = 0;
-    let series = [];
-    while (i < count) {
-      let x = Math.floor(Math.random() * (750 - 1 + 1)) + 1;
-      let y =
-        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-      let z = Math.floor(Math.random() * (75 - 15 + 1)) + 15;
-
-      series.push([x, y, z]);
-      baseval += 86400000;
-      i++;
-    }
-    return series;
+  constructor(private chartSplineService: Co2EmissionsChartSplineService) {
   }
 }

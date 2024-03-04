@@ -11,13 +11,13 @@
     <form [formGroup]="form">
       <mat-form-field class="w-full">
         <mat-label>{{ formData.name }}</mat-label>
-        <input matInput placeholder="" formControlName="name">
-        @if (form.get('name')?.hasError('required')) {
+        <input matInput placeholder="" formControlName="value">
+        @if (form.get('value')?.hasError('required')) {
           <mat-error>Поле обязательное.</mat-error>
         }
-        @if (form.get('name')?.hasError('min') ||
-            form.get('name')?.hasError('max') ||
-            form.get('name')?.hasError('pattern')
+        @if (form.get('value')?.hasError('min') ||
+            form.get('value')?.hasError('max') ||
+            form.get('value')?.hasError('pattern')
           ) {
           <mat-error>Допустимое значение от 0 до 1000.</mat-error>
         }

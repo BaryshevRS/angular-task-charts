@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "@ngrx/component-store": "^17.1.1",
     "apexcharts": "^3.46.0",
     "ng-apexcharts": "^1.9.0",
     "ngx-echarts": "^17.1.0",

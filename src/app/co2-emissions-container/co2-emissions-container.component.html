@@ -1,9 +1,9 @@
 <div class="inline-flex gap-4 w-full justify-center pb-8">
   @for (form of forms; track form) {
-    <app-co2-emissions-form [formData]="form"/>
+    <app-co2-emissions-form (submit)="store.setChartData($event, form.id)" [formData]="form"/>
   }
 </div>
 <div class="inline-flex gap-4 w-full justify-center">
-  <app-co2-emissions-chart-scatter />
-  <app-co2-emissions-chart-spline />
+  <app-co2-emissions-chart-scatter [data]="store.chartData()" />
+  <app-co2-emissions-chart-spline [data]="store.chartData()" />
 </div>
