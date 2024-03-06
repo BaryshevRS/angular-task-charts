@@ -8,11 +8,11 @@ export class Co2CalculatorService {
     [CO2FormId.Gas]: this.calculateGasCo2,
   }
 
-  calculateGasCo2(gasConsumption: number): number {
+  private calculateGasCo2(gasConsumption: number): number {
     return Math.trunc(gasConsumption * 1.129 * 1.59);
   }
 
-  calculateCoalCo2(coalConsumption: number): number {
+  private calculateCoalCo2(coalConsumption: number): number {
     return Math.trunc(coalConsumption * 0.768 * 2.76);
   }
 }

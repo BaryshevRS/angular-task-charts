@@ -14,17 +14,10 @@ export class Co2EmissionsChartSplineService {
     series: ApexAxisChartSeries;
     xaxis: ApexXAxis;
   } {
-    const mergedValues = Object.values(data).reduce((a, v) => {
-      return [...a, ...v];
-    }, []);
-
-    const categories: Record<number, string> = mergedValues.reduce((a: Record<number, string>, {date}) => {
-      const id = new Date(date + '').setHours(0, 0, 0, 0);
-      return {...a, [id]: date + ''}
-    }, {})
-
-    const gas = this.getSeries(data[CO2FormId.Gas], categories, this.co2CalculatorService.calculateGasCo2);
-    const coal = this.getSeries(data[CO2FormId.Coal], categories, this.co2CalculatorService.calculateCoalCo2);
+    const categories = this.getCategories(data);
+    const categoriesOrdered  = Object.keys(categories).sort((a, b) => +a - +b)
+    const gas = this.getSeries(data[CO2FormId.Gas], categoriesOrdered, this.co2CalculatorService.calculateById[CO2FormId.Gas]);
+    const coal = this.getSeries(data[CO2FormId.Coal], categoriesOrdered, this.co2CalculatorService.calculateById[CO2FormId.Coal]);
 
     const series = [
       {
@@ -45,22 +38,32 @@ export class Co2EmissionsChartSplineService {
       type: "datetime",
       categories: Object.values(categories)
     }
-    // console.error('{ series, xaxis }', {series, xaxis})
+    console.error('{ series, xaxis }', {series, xaxis})
     return {series, xaxis}
   }
 
-  getSeries(data: Array<Co2Data>, categories: Record<number, string>, mapFn: (v: number) => number) {
+  getCategories(data: Record<CO2FormId, Array<Co2Data>>): Record<number, string> {
+    const mergedValues = Object.values(data).reduce((a, v) => {
+      return [...a, ...v];
+    }, []);
+
+    return mergedValues.reduce((a: Record<number, string>, {date}) => {
+      const id = new Date(date + '').setHours(0, 0, 0, 0);
+      return {...a, [id]: date + ''}
+    }, {})
+  }
+
+  getSeries(data: Array<Co2Data>, categories: string[], mapFn: (v: number) => number) {
     data.sort((a, b) => +new Date(a.date + '') - +new Date(b.date + ''));
     const dataMap = new Map<number, Co2Data>();
+
     data.forEach(({date, value}) => {
       const id = new Date(date + '').setHours(0, 0, 0, 0);
       dataMap.set(id, { date, value });
     })
 
-    const cat  = Object.keys(categories).sort((a, b) => +a - +b)
-
     const res: Array<number> = [];
-    cat.forEach((id) => {
+    categories.forEach((id) => {
       if (dataMap.has(+id)) {
         res.push(mapFn(dataMap.get(+id)!.value));
       } else {

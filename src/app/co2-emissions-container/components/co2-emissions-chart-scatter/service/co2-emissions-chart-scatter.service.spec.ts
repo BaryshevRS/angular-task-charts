@@ -17,7 +17,7 @@ describe('Co2EmissionsChartScatterService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should be created', () => {
+  it('should be work', () => {
     const Co2EmissionMock = {
       [CO2FormId.Gas]: [
         {
