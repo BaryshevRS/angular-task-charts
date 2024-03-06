@@ -39,18 +39,6 @@ export class Co2EmissionsChartScatterService {
         },
         {
           type: 'scatter',
-          name: CO2EmissionTitle[CO2FormId.Coal],
-          symbolSize: 10,
-          color: 'green',
-          data: data[CO2FormId.Coal].map(item => ({
-            // Имя точки (может использоваться для всплывающих подсказок)
-            name: item.date,
-            // Значение точки, где первый элемент - дата, а второй - значение
-            value: [new Date(item.date + ''), this.co2CalculatorService.calculateCoalCo2(item.value)]
-          }))
-        },
-        {
-          type: 'scatter',
           name: CO2EmissionTitle.all,
           symbolSize: 10,
           color: 'orange',
