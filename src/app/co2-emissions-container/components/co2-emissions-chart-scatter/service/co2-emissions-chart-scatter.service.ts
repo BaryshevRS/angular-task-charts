@@ -11,6 +11,8 @@ export class Co2EmissionsChartScatterService {
   }
 
   setData(data: Record<CO2FormId, Array<Co2Data>>): EChartsOption {
+    data = this.calculateGasCo2(data);
+
     return {
       series: [
         {
@@ -22,7 +24,7 @@ export class Co2EmissionsChartScatterService {
             // Имя точки (может использоваться для всплывающих подсказок)
             name: item.date,
             // Значение точки, где первый элемент - дата, а второй - значение
-            value: [new Date(item.date + ''), this.co2CalculatorService.calculateGasCo2(item.value)]
+            value: [new Date(item.date + ''), item.value]
           }))
         },
         {
@@ -34,7 +36,7 @@ export class Co2EmissionsChartScatterService {
             // Имя точки (может использоваться для всплывающих подсказок)
             name: item.date,
             // Значение точки, где первый элемент - дата, а второй - значение
-            value: [new Date(item.date + ''), this.co2CalculatorService.calculateCoalCo2(item.value)]
+            value: [new Date(item.date + ''), item.value]
           }))
         },
         {
@@ -46,11 +48,22 @@ export class Co2EmissionsChartScatterService {
             // Имя точки (может использоваться для всплывающих подсказок)
             name: item.date,
             // Значение точки, где первый элемент - дата, а второй - значение
-            value: [new Date(item.date + ''), this.co2CalculatorService.calculateCoalCo2(item.value)]
+            value: [new Date(item.date + ''), item.value]
           }))
         },
       ]
     } as EChartsOption
+  }
+
+  calculateGasCo2(data: Record<CO2FormId, Array<Co2Data>>): Record<CO2FormId, Array<Co2Data>> {
+    const res = {} as Record<CO2FormId, Array<Co2Data>>
+    for (let id in data) {
+      if (Object.prototype.hasOwnProperty.call(data, id)) {
+        const typedId = id as CO2FormId;
+        res[typedId] = data[typedId].map((item) => ({ ...item, value: this.co2CalculatorService.calculateById[typedId](item.value)}));
+      }
+    }
+    return res;
   }
 
   mergeAll(data: Record<CO2FormId, Array<Co2Data>>): Array<Co2Data> {

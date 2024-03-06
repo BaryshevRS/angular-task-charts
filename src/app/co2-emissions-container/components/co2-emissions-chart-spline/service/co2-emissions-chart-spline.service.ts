@@ -45,7 +45,7 @@ export class Co2EmissionsChartSplineService {
       type: "datetime",
       categories: Object.values(categories)
     }
-    console.error('{ series, xaxis }', {series, xaxis})
+    // console.error('{ series, xaxis }', {series, xaxis})
     return {series, xaxis}
   }
 
