@@ -1,13 +1,9 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import {
   ChartComponent, NgApexchartsModule
 } from "ng-apexcharts";
 import { ChartSplineOptions } from "./models";
-import { ChangeDetection } from "@angular/cli/lib/config/workspace-schema";
 import { Co2CalculatorService } from "../../services/co2-calculator.service";
-import {
-  Co2EmissionsChartScatterService
-} from "../co2-emissions-chart-scatter/service/co2-emissions-chart-scatter.service";
 import { Co2EmissionsChartSplineService } from "./service/co2-emissions-chart-spline.service";
 import { Co2Data, CO2FormId } from "../../models/co2-data.interface";
 

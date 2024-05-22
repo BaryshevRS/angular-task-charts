@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { Co2EmissionsFormComponent } from "./components/co2-emissions-form/co2-emissions-form.component";
-import { Co2Data, CO2FormData, CO2FormId } from "./models/co2-data.interface";
+import { CO2FormData, CO2FormId } from "./models/co2-data.interface";
 import {
   Co2EmissionsChartScatterComponent
 } from "./components/co2-emissions-chart-scatter/co2-emissions-chart-scatter.component";
 import {
   Co2EmissionsChartSplineComponent
 } from "./components/co2-emissions-chart-spline/co2-emissions-chart-spline.component";
-import { Co2CalculatorService } from "./services/co2-calculator.service";
 import { CO2EmissionsStore } from "./store/co2-emissions.state";
 
 @Component({

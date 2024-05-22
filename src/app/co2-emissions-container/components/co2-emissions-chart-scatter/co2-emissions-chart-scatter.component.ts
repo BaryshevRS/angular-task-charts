@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgxEchartsDirective, provideEcharts } from "ngx-echarts";
 import { EChartsOption, format } from 'echarts';
 import { Co2CalculatorService } from "../../services/co2-calculator.service";
